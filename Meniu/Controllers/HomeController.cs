@@ -42,56 +42,59 @@ namespace Meniu.Controllers
 
         [HttpPost]
 
-        public async Task<Orders> SubmitOrder(List<Food> x)
+        public async Task<Orders> SubmitOrder(List<FoodRequest> x)
 
         {
-            
-          /* cartofi , 3, 15 ,m1
-           pui, 3, 15 ,m1
-           porc, 3, 15 ,m1
-          */
 
-          Orders order = new Orders()
-            {
-                oderDate = DateTime.Today,
-                paid = false,
-                price = Methods.GetMaxPrice(x),
-                served=false,
-                waittingTime = Methods.GetMaxWaittingTime(x),
-                comment="",
-                
-
-                
-                
-            };
-
-
-            context.Order.Add(order);
-
+            /* cartofi , 3, 15 ,m1
+             pui, 3, 15 ,m1
+             porc, 3, 15 ,m1
+            */
             x = x.Where(f => f.amount >= 1).ToList();
-            foreach(var food in x)
-            {
-                var orderFood = new OrderFood()
+
+            Orders order = new Orders()
                 {
-                    Food = food,
-                    Order = order
+                    oderDate = DateTime.Now,
+                    paid = false,
+                    price = Methods.GetTotalPrice(x),
+                    served = false,
+                    waittingTime = Methods.GetMaxWaittingTime(x),
+                    comment = "",
+                    table = x.First().table,
+
+
                 };
-                try
-                {
-                    orderFood.ID = context.OrderFood.Max(f => f.ID);
-                }
-                catch(Exception exp)
-                {
-                    orderFood.ID = 1;
-                }
 
-                context.OrderFood.Add(orderFood);
-                
 
-            }
+
+              context.Order.Add(order);
             await context.SaveChangesAsync();
 
 
+
+            foreach (var food in x)
+            {
+                var orderFood = new OrderFood()
+                {
+                    Food = food.id,
+                    Order = order.id
+                };
+                
+               /* try
+                {
+                    orderFood.id = context.OrderFood.Max(f => f.id);
+                }
+                catch(Exception exp)
+                {
+                    orderFood.id = 1;
+                }*/
+
+                context.OrderFood.Add(orderFood);
+                
+            }
+
+
+            await context.SaveChangesAsync();
             return order;
         }
 

@@ -7,10 +7,10 @@ namespace Meniu.Models
 {
     public class OrderFood
     {
-        public int ID { get; set; }
+        public int id { get; set; }
 
-        public Food Food { get; set; }
-        public Orders Order { get; set; }
+        public int Food { get; set; }
+        public int Order { get; set; }
 
     }
 }

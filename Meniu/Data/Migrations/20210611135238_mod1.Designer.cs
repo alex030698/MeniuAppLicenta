@@ -4,14 +4,16 @@ using Meniu.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meniu.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210611135238_mod1")]
+    partial class mod1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,13 +238,17 @@ namespace Meniu.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Food")
+                    b.Property<int?>("Foodid")
                         .HasColumnType("int");
 
-                    b.Property<int>("Order")
+                    b.Property<int?>("Orderid")
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Foodid");
+
+                    b.HasIndex("Orderid");
 
                     b.ToTable("OrderFood");
                 });
@@ -467,6 +473,17 @@ namespace Meniu.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Meniu.Models.OrderFood", b =>
+                {
+                    b.HasOne("Meniu.Models.FoodRequest", "Food")
+                        .WithMany()
+                        .HasForeignKey("Foodid");
+
+                    b.HasOne("Meniu.Models.Orders", "Order")
+                        .WithMany()
+                        .HasForeignKey("Orderid");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

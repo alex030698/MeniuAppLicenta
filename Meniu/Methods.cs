@@ -8,7 +8,7 @@ namespace Meniu
 {
     public static  class Methods
     {
-        public static float GetMaxPrice(List<Food> input)
+        public static float GetMaxPrice(List<FoodRequest> input)
         {
             float max = 0;
             foreach (var items in input)
@@ -20,7 +20,20 @@ namespace Meniu
             return max;
 
         }
-        public static int GetMaxWaittingTime(List<Food> input)
+
+        public static float GetTotalPrice(List<FoodRequest> input)
+        {
+            float total = 0;
+
+            foreach (var item in input)
+            {
+                total += item.price * item.amount;
+                
+            } 
+            return total;
+
+        }
+        public static int GetMaxWaittingTime(List<FoodRequest> input)
         {
             int max = 0;
             foreach (var items in input)
