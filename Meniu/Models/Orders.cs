@@ -15,6 +15,6 @@ namespace Meniu.Models
         public Boolean paid { get; set; }
         public Boolean served { get; set; }
         public string comment { get; set; }
-        public Food preparation { get; set; }
+        public int table { get; set; }
     }
 }

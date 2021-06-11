@@ -59,7 +59,7 @@ namespace Meniu.Controllers
                 served=false,
                 waittingTime = Methods.GetMaxWaittingTime(x),
                 comment="",
-                //table=
+                
 
                 
                 
