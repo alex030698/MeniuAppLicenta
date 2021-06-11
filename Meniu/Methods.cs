@@ -6,9 +6,9 @@ using Meniu.Models;
 
 namespace Meniu
 {
-    public class Methods
+    public static  class Methods
     {
-        public float GetMaxPrice(List<Food> input)
+        public static float GetMaxPrice(List<Food> input)
         {
             float max = 0;
             foreach (var items in input)
@@ -20,7 +20,7 @@ namespace Meniu
             return max;
 
         }
-        public int GetMaxWaittingTime(List<Food> input)
+        public static int GetMaxWaittingTime(List<Food> input)
         {
             int max = 0;
             foreach (var items in input)

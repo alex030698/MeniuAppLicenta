@@ -27,32 +27,35 @@ namespace Meniu.Controllers
             this.context = context;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var menu = context.Food;
-            Food m = new Food();
 
-            string txt = "";
-            foreach(var x in menu)
-            {
-                txt = x.ingredients;
-                
-            }
-            List<Food> food = new List<Food>();
-            foreach (var item in menu)
-            {
-                food.Add(item);
-            }
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = txt    //Summaries[rng.Next(Summaries.Length)]
+        /*   public IEnumerable<WeatherForecast> Get()
+           {
+               var menu = context.Food;
+               Food m = new Food();
 
-            })
-            .ToArray();
-        }
+               string txt = "";
+               foreach(var x in menu)
+               {
+                   txt = x.ingredients;
+
+               }
+               List<Food> food = new List<Food>();
+               foreach (var item in menu)
+               {
+                   food.Add(item);
+               }
+               var rng = new Random();
+               return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+               {
+                   Date = DateTime.Now.AddDays(index),
+                   TemperatureC = rng.Next(-20, 55),
+                   Summary = txt    //Summaries[rng.Next(Summaries.Length)]
+
+               })
+               .ToArray();
+           }
+       }
+   }
+   */
     }
 }

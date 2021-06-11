@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Meniu.Methods;
 
 namespace Meniu.Controllers
 {
@@ -44,10 +45,24 @@ namespace Meniu.Controllers
         public async Task<Orders> SubmitOrder(List<Food> x)
 
         {
-            Orders order = new Orders()
+            
+          /* cartofi , 3, 15 ,m1
+           pui, 3, 15 ,m1
+           porc, 3, 15 ,m1
+          */
+
+          Orders order = new Orders()
             {
-                paid = true,
-                price = 200
+                oderDate = DateTime.Today,
+                paid = false,
+                price = Methods.GetMaxPrice(x),
+                served=false,
+                waittingTime = Methods.GetMaxWaittingTime(x),
+                comment="",
+                //table=
+
+                
+                
             };
 
 
