@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AppComponent } from 'src/app/app.component';
 import { Observable } from 'rxjs';
-import { Food, Order } from '../model/home'
+import { Food, Order,OrderFood } from '../model/home'
 import { Inject } from '@angular/core';
 
 @Injectable({
