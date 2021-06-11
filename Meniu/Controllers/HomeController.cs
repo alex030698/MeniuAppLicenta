@@ -35,7 +35,7 @@ namespace Meniu.Controllers
             }
 
 
-            return food;
+            return food; //trimitere lista preparate catre front-ent
 
         }
 
