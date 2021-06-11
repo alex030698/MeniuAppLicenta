@@ -25,7 +25,7 @@ namespace Meniu.Controllers
 
         public List<Food> GetFood()
         {
-            var menu = context.Food;
+            var menu = context.Food; //obiect de tipul dbContext
             List<Food> food = new List<Food>();
            
             foreach (var item in menu)
@@ -35,7 +35,7 @@ namespace Meniu.Controllers
             }
 
 
-            return food;
+            return food; //trimite lista de obiecte catre frntend
 
         }
 
@@ -75,6 +75,7 @@ namespace Meniu.Controllers
 
             }
             await context.SaveChangesAsync();
+
 
 
             return order;
