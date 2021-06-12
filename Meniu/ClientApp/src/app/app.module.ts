@@ -52,7 +52,8 @@ import { jqxKanbanModule } from 'jqwidgets-ng/jqxkanban';
     CommonModule,
     
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      {path: '' , component:NavMenuComponent , pathMatch:'full'},
+      { path: 'home', component: HomeComponent},
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
     ]),

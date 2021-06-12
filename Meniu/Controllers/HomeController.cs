@@ -24,8 +24,10 @@ namespace Meniu.Controllers
         [HttpGet]
         
 
-        public List<Food> GetFood()
+        public List<Food> GetFood(int id)
         {
+
+            Console.WriteLine("Hello table " + id);
             var menu = context.Food;
             List<Food> food = new List<Food>();
            
@@ -80,14 +82,7 @@ namespace Meniu.Controllers
                     Order = order.id
                 };
                 
-               /* try
-                {
-                    orderFood.id = context.OrderFood.Max(f => f.id);
-                }
-                catch(Exception exp)
-                {
-                    orderFood.id = 1;
-                }*/
+               
 
                 context.OrderFood.Add(orderFood);
                 

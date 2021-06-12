@@ -25,23 +25,23 @@ export class HomeComponent {
   public foods:Food[];
   
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string , private homeservice:HomeService) {
+  constructor( private homeservice:HomeService) {
     
     
-    http.get<Food[]>(baseUrl+'Home').subscribe(result=>{ this.foods=result
+  
+    this.homeservice.getFood(1).subscribe((response:Food[])=>{
+      this.foods=response;
       for(let item  of this.foods ){
         item.amount=0;
         item.total=0;
         item.table=this.table;
 
       }
+
+      
       this.dataSource.data=this.foods;
       this.dataSource.sort;
-      
-      //console.log(this.foods, this.dataSource.data);
-    })
-     
-    
+      });
   
   }
   
