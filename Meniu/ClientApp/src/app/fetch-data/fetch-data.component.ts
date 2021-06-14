@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import{FetchDataService} from './service/fetch-data.service'
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { OrdersResponse } from './model/fetch-data';
 
 @Component({
   selector: 'app-fetch-data',
@@ -11,8 +12,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 export class FetchDataComponent {
   public forecasts: WeatherForecast[];
   public foods:Food[];
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+ public orders:OrdersResponse[];
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string ,private fetchData:FetchDataService) {
     http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
       this.forecasts = result;
       console.log(this.forecasts)
@@ -23,6 +24,10 @@ export class FetchDataComponent {
 
       console.log(this.foods)
     })
+
+     this.fetchData.GetOrders().subscribe((response:OrdersResponse[])=>{
+       console.log(response);
+     })
   
   }
 
@@ -66,4 +71,8 @@ interface Food{
   price:number;
   ingredients:string;
   preparatiomTime:number;
+}
+
+function GetOrders() {
+  throw new Error('Function not implemented.');
 }

@@ -23,7 +23,7 @@ namespace Meniu.Controllers
         }
         [HttpGet]
         
-
+        [Route("home/{id}")]
         public List<Food> GetFood(int id)
         {
 
@@ -47,13 +47,14 @@ namespace Meniu.Controllers
         public async Task<Orders> SubmitOrder(List<FoodRequest> x)
 
         {
-
+            var check = context.Order;
             /* cartofi , 3, 15 ,m1
              pui, 3, 15 ,m1
              porc, 3, 15 ,m1
             */
             x = x.Where(f => f.amount >= 1).ToList();
-
+           // int[] table = check.Select(z => z.table).Where().ToArray();
+            
             Orders order = new Orders()
                 {
                     oderDate = DateTime.Now,

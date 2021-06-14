@@ -24,7 +24,7 @@ export class HomeService {
   getFood(id:number):Observable<Food[]>{
     
 
-      return this.http.get<Food[]>(this._baseURL+'Home');
+      return this.http.get<Food[]>(this._baseURL+'Home/'+id);
   }
   
 }
