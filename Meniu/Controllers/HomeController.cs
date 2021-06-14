@@ -89,7 +89,7 @@ namespace Meniu.Controllers
                 
             }
 
-            context.Order.FirstOrDefault(i => i.id == 10).paid = true;
+           // context.Order.FirstOrDefault(i => i.id == 10).paid = true;
             await context.SaveChangesAsync();
 
 
