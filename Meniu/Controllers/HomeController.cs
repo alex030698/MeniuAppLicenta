@@ -24,7 +24,7 @@ namespace Meniu.Controllers
         [HttpGet]
         
         //[Route("home/{id}")]
-        public List<Food> GetFood(int id)
+        public List<Food> GetFood(int id=0)
         {
 
             Console.WriteLine("Hello table " + id);
@@ -33,8 +33,8 @@ namespace Meniu.Controllers
            
             foreach (var item in menu)
             {
+                item.tableId = id;
                 food.Add(item);
-                
             }
 
 
@@ -89,8 +89,10 @@ namespace Meniu.Controllers
                 
             }
 
-
+            context.Order.FirstOrDefault(i => i.id == 10).paid = true;
             await context.SaveChangesAsync();
+
+
             return order;
         }
 
