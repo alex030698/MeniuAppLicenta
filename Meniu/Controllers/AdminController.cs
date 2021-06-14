@@ -93,6 +93,46 @@ namespace Meniu.Controllers
 
         [HttpPost]
 
+        //set an order or list of orders as paid
+        public async void UpdateOrdersToPaid(List<int> ids)//input - list of orders id
+        {
+            foreach(var item in ids)
+            {
+                context.Order.FirstOrDefault(i => i.id == item).paid = true;
+            }
+           await context.SaveChangesAsync();
+        }
+
+        //set an order or list of orders as unpaid
+        public async void UpdateOrdersToUnpaid(List<int> ids)//input - list of orders id
+        {
+            foreach (var item in ids)
+            {
+                context.Order.FirstOrDefault(i => i.id == item).paid = false;
+            }
+            await context.SaveChangesAsync();
+        }
+
+        //set an order or list of orders as served
+        public async void UpdateOrdersToServed(List<int> ids)//input - list of orders id
+        {
+            foreach (var item in ids)
+            {
+                context.Order.FirstOrDefault(i => i.id == item).served = true;
+            }
+            await context.SaveChangesAsync();
+        }
+
+        //set an order or list of orders as unserved 
+        public async void UpdateOrdersToUnserved(List<int> ids) //input - list of orders id
+        {
+            foreach (var item in ids)
+            {
+                context.Order.FirstOrDefault(i => i.id == item).served = false;
+            }
+            await context.SaveChangesAsync();
+        }
+
 
         public IActionResult Index()
         {
