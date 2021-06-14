@@ -44,7 +44,7 @@ namespace Meniu.Controllers
 
         [HttpPost]
 
-        public async Task<Orders> SubmitOrder(List<FoodRequest> x)
+        public async void SubmitOrder(List<FoodRequest> x)
 
         {
             var check = context.Order;
@@ -53,9 +53,12 @@ namespace Meniu.Controllers
              porc, 3, 15 ,m1
             */
             x = x.Where(f => f.amount >= 1).ToList();
-           // int[] table = check.Select(z => z.table).Where().ToArray();
-            
-            Orders order = new Orders()
+            // int[] table = check.Select(z => z.table).Where().ToArray();
+            Orders isPaid = context.Order.LastOrDefault(y => y.table == x.First().table);
+            Orders aux = new Orders();
+            if (isPaid.paid == true)
+            {
+                Orders order = new Orders()
                 {
                     oderDate = DateTime.Now,
                     paid = false,
@@ -67,10 +70,17 @@ namespace Meniu.Controllers
 
 
                 };
+                aux = order;
+                context.Order.Add(order);
+            }
+            else
+            {
+                UpdateOrder(isPaid.id, x);  
+            }
 
 
 
-              context.Order.Add(order);
+              
             await context.SaveChangesAsync();
 
 
@@ -80,7 +90,7 @@ namespace Meniu.Controllers
                 var orderFood = new OrderFood()
                 {
                     Food = food.id,
-                    Order = order.id
+                    Order = aux.id
                 };
                 
                
@@ -93,7 +103,27 @@ namespace Meniu.Controllers
             await context.SaveChangesAsync();
 
 
-            return order;
+            
+        }
+        //set an order or list of orders as unpaid
+        public async Task<Orders> UpdateOrder(int orderId, List<FoodRequest> x)//input - list of orders id
+        {
+            
+            context.Order.FirstOrDefault(i => i.id == orderId).paid = false;
+            context.Order.FirstOrDefault(i => i.id == orderId).served = false;
+            
+            foreach (var item in x)
+            {
+                OrderFood toAdd = new OrderFood()
+                {
+                    Food=item.id,
+                    Order=orderId
+                };
+                context.OrderFood.Add(toAdd);
+            }
+
+            await context.SaveChangesAsync();
+            return context.Order.FirstOrDefault(i=>i.id==orderId);
         }
 
         public IActionResult Index()
