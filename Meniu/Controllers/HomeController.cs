@@ -23,7 +23,7 @@ namespace Meniu.Controllers
         }
         [HttpGet]
         
-        [Route("home/{id}")]
+        //[Route("home/{id}")]
         public List<Food> GetFood(int id)
         {
 

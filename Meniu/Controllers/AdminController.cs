@@ -89,6 +89,10 @@ namespace Meniu.Controllers
             
         }
 
+
+        [HttpPost]
+
+
         public IActionResult Index()
         {
             return View();

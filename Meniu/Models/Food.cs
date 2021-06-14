@@ -17,5 +17,7 @@ namespace Meniu.Models
         public string ingredients { get; set; }
 
         public int preparationTime { get; set; }
+
+        public int tableId { get; set; }
     }
 }
