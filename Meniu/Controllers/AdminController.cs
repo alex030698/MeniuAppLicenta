@@ -133,6 +133,34 @@ namespace Meniu.Controllers
             await context.SaveChangesAsync();
         }
 
+        public async void AddNewItemsInMenu(List<Food> foods)
+        {
+            foreach(var item in foods)
+            {
+                context.Food.Add(item);
+            }
+            await context.SaveChangesAsync();
+        }
+
+
+        public async void RemoveItemsFromMenu(List<int> ids)
+        {
+            foreach (var item in ids)
+            {
+                var line = context.Food.FirstOrDefault(x => x.id == item);
+                context.Remove(line);
+            }
+            await context.SaveChangesAsync();
+        }
+
+        public async void UpdateItemsInMenu(List<Food> foods)
+        {
+            foreach(var item in foods)
+            {
+
+            }
+            await context.SaveChangesAsync();
+        }
 
         public IActionResult Index()
         {

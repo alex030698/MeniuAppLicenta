@@ -99,14 +99,14 @@ namespace Meniu.Controllers
                 
             }
 
-           // context.Order.FirstOrDefault(i => i.id == 10).paid = true;
+           
             await context.SaveChangesAsync();
 
 
             
         }
-        //set an order or list of orders as unpaid
-        public async Task<Orders> UpdateOrder(int orderId, List<FoodRequest> x)//input - list of orders id
+       
+        public async Task<Orders> UpdateOrder(int orderId, List<FoodRequest> x)
         {
             
             context.Order.FirstOrDefault(i => i.id == orderId).paid = false;
