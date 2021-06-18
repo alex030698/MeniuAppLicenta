@@ -10,14 +10,11 @@ import { OrdersResponse } from './model/fetch-data';
   styleUrls: ['./fetch-data.component.css'],
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  
   public foods:Food[];
  public orders:OrdersResponse[];
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string ,private fetchData:FetchDataService) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-      this.forecasts = result;
-      console.log(this.forecasts)
-    }, error => console.error(error));
+    
 
 
     http.get<Food[]>(baseUrl+'Home').subscribe(result=>{ this.foods=result
@@ -58,12 +55,7 @@ export class FetchDataComponent {
   }
 }
 
-interface WeatherForecast {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-}
+
 interface Food{
   id:number;
   name:string;

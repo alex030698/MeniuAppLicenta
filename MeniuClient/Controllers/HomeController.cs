@@ -1,21 +1,16 @@
-﻿using Meniu.Data;
-using Meniu.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using MeniuClient.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using static Meniu.Methods;
 
-namespace Meniu.Controllers
+namespace MeniuClient.Controllers
 {
-    
-    [ApiController]
-    [Route("[controller]")]
     public class HomeController : Controller
     {
+
         private readonly ApplicationDbContext context;
 
         public HomeController(ApplicationDbContext context)
@@ -23,22 +18,22 @@ namespace Meniu.Controllers
             this.context = context;
         }
         [HttpGet]
-        
+
         //[Route("home/{id}")]
-        public List<Food> GetFood(int id=0)
+        public List<Food> GetFood(int id = 0)
         {
 
             Console.WriteLine("Hello table ");
             var menu = context.Food;
             List<Food> food = new List<Food>();
-           
+
             foreach (var item in menu)
             {
                 item.tableId = id;
                 food.Add(item);
             }
 
-
+            
             return food; //trimitere lista preparate catre front-ent
 
         }
@@ -53,26 +48,26 @@ namespace Meniu.Controllers
              pui, 3, 15 ,m1
              porc, 3, 15 ,m1
             */
-            x = x.Where(f => f.amount >= 1).ToList();
+            x = x.Where(f => f.Amount >= 1).ToList();
             if (x.Count != 0)
             {
-                var bla = context.Order.FirstOrDefault(y => y.table == x.FirstOrDefault().table);
-                Orders isPaid = new Orders();
+                var bla = context.Order.FirstOrDefault(y => y.table == x.FirstOrDefault().Table);
+                Order isPaid = new Order();
                 var auxList = check.ToList();
-                isPaid = auxList.LastOrDefault(y => y.table == x.FirstOrDefault().table);
+                isPaid = auxList.LastOrDefault(y => y.table == x.FirstOrDefault().Table);
 
-                Orders aux = new Orders();
-                if (isPaid.paid == true)
+                Order aux = new Order();
+                if (isPaid.Paid == true)
                 {
-                    Orders order = new Orders()
+                    Order order = new Order()
                     {
-                        oderDate = DateTime.Now,
-                        paid = false,
-                        price = Methods.GetTotalPrice(x),
-                        served = false,
-                        waittingTime = Methods.GetMaxWaittingTime(x),
-                        comment = "",
-                        table = x.First().table,
+                        OderDate = DateTime.Now,
+                        Paid = false,
+                        Price = Methods.GetTotalPrice(x),
+                        Served = false,
+                        WaittingTime = Methods.GetMaxWaittingTime(x),
+                        Comment = "",
+                        Table = x.First().Table,
 
 
                     };
@@ -81,7 +76,7 @@ namespace Meniu.Controllers
                 }
                 else
                 {
-                    UpdateOrder(isPaid.id, x).Wait();
+                    UpdateOrder(isPaid.Id, x).Wait();
 
 
 
@@ -93,8 +88,8 @@ namespace Meniu.Controllers
                 {
                     var orderFood = new OrderFood()
                     {
-                        Food = food.id,
-                        Order = aux.id
+                        Food = food.Id,
+                        Order = aux.Id
                     };
 
 
@@ -107,28 +102,28 @@ namespace Meniu.Controllers
 
             }
 
-            
+
         }
-       
+
         public async Task<Orders> UpdateOrder(int orderId, List<FoodRequest> x)
         {
-            
+
             context.Order.FirstOrDefault(i => i.id == orderId).paid = false;
             context.Order.FirstOrDefault(i => i.id == orderId).served = false;
-            
+
             foreach (var item in x)
             {
                 OrderFood toAdd = new OrderFood()
                 {
-                    Food=item.id,
-                    Order=orderId
+                    Food = item.id,
+                    Order = orderId
                 };
                 context.OrderFood.Add(toAdd);
             }
 
             await context.SaveChangesAsync();
 
-            return context.Order.FirstOrDefault(i=>i.id==orderId);
+            return context.Order.FirstOrDefault(i => i.id == orderId);
         }
 
         public IActionResult Index()
@@ -137,3 +132,4 @@ namespace Meniu.Controllers
         }
     }
 }
+

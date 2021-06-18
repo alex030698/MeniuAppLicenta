@@ -5,8 +5,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
+
+
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
@@ -24,14 +24,18 @@ import { MatTableModule } from '@angular/material/table'
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule }   from '@angular/common';
 import { jqxKanbanModule } from 'jqwidgets-ng/jqxkanban';
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    
+    
+    FetchDataComponent,
+    
+    
+    IntroComponent
     
     
   ],
@@ -52,10 +56,10 @@ import { jqxKanbanModule } from 'jqwidgets-ng/jqxkanban';
     CommonModule,
     
     RouterModule.forRoot([
-      {path: '' , component:NavMenuComponent , pathMatch:'full'},
-      { path: 'home', component: HomeComponent},
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      
+      
+      {path : 'intro' , component:IntroComponent},
+      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard]  },
     ]),
     BrowserAnimationsModule
   ],

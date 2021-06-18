@@ -1,4 +1,13 @@
-import { Food } from "src/app/home/model/home";
+export interface Food{
+    id:number;
+    name:string;
+    type:string;
+    amount:string;
+    price:number;
+    ingredients:string;
+    preparationTime:number;
+    tableId:number;
+}
 
 
 export interface OrdersResponse{
