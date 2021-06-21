@@ -7,6 +7,7 @@ import { OrdersResponse } from '../model/fetch-data';
   providedIn: 'root'
 })
 export class FetchDataService {
+ 
 
   _baseURL: string;
 
@@ -18,5 +19,22 @@ export class FetchDataService {
    GetOrders():Observable<OrdersResponse[]>
    {
       return this.http.get<OrdersResponse[]>(this._baseURL+'Admin');
+   }
+
+   UpdateOrdersToPaid(item:OrdersResponse ):Observable<any>
+   {
+     return this.http.post<any>(this._baseURL+'Paid' , item);
+   }
+   UpdateOrdersToServed(item:OrdersResponse ,custom="served"):Observable<any>
+   {
+     return this.http.post<any>(this._baseURL+'Served' , item);
+   }
+   DeleteOrder(item:OrdersResponse ):Observable<any>
+   {
+     return this.http.post<any>(this._baseURL+'Delete' , item);
+   }
+   getSingleOrder(item:OrdersResponse):Observable<any>{
+     return null;
+
    }
 }

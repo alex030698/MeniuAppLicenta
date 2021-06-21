@@ -22,3 +22,9 @@ export interface OrdersResponse{
     table:number;
     food:Food[];
 }
+export interface PeriodicElement {
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+  }

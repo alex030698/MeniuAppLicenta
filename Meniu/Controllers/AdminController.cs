@@ -94,15 +94,21 @@ namespace Meniu.Controllers
         [HttpPost]
 
         //set an order or list of orders as paid
-        public async void UpdateOrdersToPaid(List<int> ids)//input - list of orders id
+        public async Task<int> UpdateOrdersToPaid(Orders ids ,string custom)//input - list of orders id
         {
-            foreach(var item in ids)
-            {
-                context.Order.FirstOrDefault(i => i.id == item).paid = true;
-            }
-           await context.SaveChangesAsync();
-        }
 
+            if (ids != null)
+            {
+                var x = context.Order.FirstOrDefault(i => i.id == ids.id);
+
+                x.paid = true;
+                context.Update(x);
+
+                await context.SaveChangesAsync();
+            }
+            return 0;
+        }
+       
         //set an order or list of orders as unpaid
         public async void UpdateOrdersToUnpaid(List<int> ids)//input - list of orders id
         {
@@ -112,15 +118,17 @@ namespace Meniu.Controllers
             }
             await context.SaveChangesAsync();
         }
-
+        
         //set an order or list of orders as served
-        public async void UpdateOrdersToServed(List<int> ids)//input - list of orders id
+        public async Task<int> UpdateOrdersToServed(Orders ids, string custom)//input - list of orders id
         {
-            foreach (var item in ids)
-            {
-                context.Order.FirstOrDefault(i => i.id == item).served = true;
-            }
+            
+            
+              context.Update(  context.Order.FirstOrDefault(i => i.id == ids.id).served=true);
+           
             await context.SaveChangesAsync();
+
+            return 0;
         }
 
         //set an order or list of orders as unserved 

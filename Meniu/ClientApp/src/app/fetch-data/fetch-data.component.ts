@@ -1,70 +1,123 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import{FetchDataService} from './service/fetch-data.service'
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
+import { FetchDataService } from './service/fetch-data.service'
 import { OrdersResponse } from './model/fetch-data';
+import { ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import {Food} from './model/fetch-data'
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from '@angular/material';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { EditOrderComponent } from './edit-order/edit-order.component';
+
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html',
   styleUrls: ['./fetch-data.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('expanded', style({ height: '*', visibility: 'visible' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class FetchDataComponent {
+export class FetchDataComponent implements OnInit{
+
+  panelOpenState = false;
+  public foods: Food[];
+  public orders: OrdersResponse[];
+  public orderID:number;
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol' ,'food','Edit'];
+  //dataSource = ELEMENT_DATA;
+
+  isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
+  expandedElement: any;
+
+  public dataSource = new MatTableDataSource<OrdersResponse>([]);
+   
+  resourceForm: FormGroup = new FormGroup({
+    id: new FormControl(null),
+    paid: new FormControl(null),
+    served: new FormControl(null),
+  });
+
+  constructor(public dialog: MatDialog, private fetchData: FetchDataService) {}
+
+  filterOptions = ['User Resouces', 'Team Resouces'];
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
+  ngOnInit(){
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  this.fetchData.GetOrders().subscribe((response: OrdersResponse[]) => {
+
+      if(response)
+      {this.dataSource.data = response;}
+     // console.log(this.dataSource.data)
+   })
+
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
   
-  public foods:Food[];
- public orders:OrdersResponse[];
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string ,private fetchData:FetchDataService) {
+  SetPaid(item:OrdersResponse)
+  {
+
+    this.fetchData.UpdateOrdersToPaid(item).subscribe((response:any)=>{
+      console.log("gata")
+    });
+    window.location.reload()
+  }
+  SetServed(item:OrdersResponse)
+  {
+
+    if(item.served!=true)
+    this.fetchData.UpdateOrdersToServed(item).subscribe((response:any)=>{
+      console.log("gata")
+      window.location.reload()
+    });
     
-
-
-    http.get<Food[]>(baseUrl+'Home').subscribe(result=>{ this.foods=result
-
-      console.log(this.foods)
-    })
-
-     this.fetchData.GetOrders().subscribe((response:OrdersResponse[])=>{
-       console.log(response);
-     })
-  
   }
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
+  Delete(item:OrdersResponse){
+    this.fetchData.DeleteOrder(item).subscribe((response:any)=>{
+      console.log("gata")
+      window.location.reload()
+    });
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
+    
+    
   }
+
+  editOrder(item: OrdersResponse) {
+    const dialogConfiguration = new MatDialogConfig();
+    dialogConfiguration.autoFocus = true;
+    dialogConfiguration.disableClose = true;
+    dialogConfiguration.width = '1000px';
+    dialogConfiguration.height = '600px';
+    console.log(item.id);
+    this.fetchData.getSingleOrder(item).subscribe((response: any) => {
+      dialogConfiguration.data = item;
+
+      const dialogRef = this.dialog.open(EditOrderComponent, dialogConfiguration);
+      
+      dialogRef.afterClosed().subscribe((response: any) => {
+        if (response) {
+          alert("text");
+          
+        }
+      });
+
+    });
 }
 
 
-interface Food{
-  id:number;
-  name:string;
-  type:string;
-  price:number;
-  ingredients:string;
-  preparatiomTime:number;
-}
 
-function GetOrders() {
-  throw new Error('Function not implemented.');
+
 }
