@@ -16,8 +16,8 @@ export interface OrdersResponse{
     orderDate:Date;
     price:number;
     waittingTime:number;
-    paid:boolean;
-    served:boolean;
+    paid:string;
+    served:string;
     comment:string;
     table:number;
     food:Food[];

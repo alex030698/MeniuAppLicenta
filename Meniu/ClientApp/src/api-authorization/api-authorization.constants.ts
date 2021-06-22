@@ -22,7 +22,7 @@ export const LoginActions = {
 };
 
 let applicationPaths: ApplicationPathsType = {
-  DefaultLoginRedirectPath: '/home',
+  DefaultLoginRedirectPath: '/fetch-data',
   ApiAuthorizationClientConfigurationUrl: `/_configuration/${ApplicationName}`,
   Login: `authentication/${LoginActions.Login}`,
   LoginFailed: `authentication/${LoginActions.LoginFailed}`,

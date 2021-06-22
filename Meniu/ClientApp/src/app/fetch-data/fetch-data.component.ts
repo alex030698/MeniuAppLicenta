@@ -28,7 +28,7 @@ export class FetchDataComponent implements OnInit{
   public foods: Food[];
   public orders: OrdersResponse[];
   public orderID:number;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol' ,'food','Edit'];
+  displayedColumns: string[] = ['position','price', 'name', 'weight', 'symbol' ,'food','Edit'];
   //dataSource = ELEMENT_DATA;
 
   isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
@@ -54,8 +54,19 @@ export class FetchDataComponent implements OnInit{
   this.fetchData.GetOrders().subscribe((response: OrdersResponse[]) => {
 
       if(response)
-      {this.dataSource.data = response;}
-     // console.log(this.dataSource.data)
+      {
+        response.forEach(element=>{
+          if(element.served!='true')
+          {
+            element.served='Yes'
+          }
+        })//todo for no
+        this.dataSource.data = response;
+        
+
+        
+      }
+     console.log(this.dataSource.data)
    })
 
 
@@ -77,7 +88,7 @@ export class FetchDataComponent implements OnInit{
   SetServed(item:OrdersResponse)
   {
 
-    if(item.served!=true)
+    if(item.served!='true')
     this.fetchData.UpdateOrdersToServed(item).subscribe((response:any)=>{
       console.log("gata")
       window.location.reload()
