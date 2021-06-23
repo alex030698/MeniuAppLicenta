@@ -4,14 +4,16 @@ using Meniu.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Meniu.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210623054806_erfee")]
+    partial class erfee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,42 +286,6 @@ namespace Meniu.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("Meniu.Models.Orderss", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("oderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("orderNo")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("paid")
-                        .HasColumnType("bit");
-
-                    b.Property<float>("price")
-                        .HasColumnType("real");
-
-                    b.Property<bool>("served")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("table")
-                        .HasColumnType("int");
-
-                    b.Property<int>("waittingTime")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Orderr");
                 });
 
             modelBuilder.Entity("Meniu.Models.Restaurants", b =>

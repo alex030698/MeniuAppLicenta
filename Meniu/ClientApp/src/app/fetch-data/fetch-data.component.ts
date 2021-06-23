@@ -55,12 +55,23 @@ export class FetchDataComponent implements OnInit{
 
       if(response)
       {
-        response.forEach(element=>{
+        console.log(response)
+       /* response.forEach(element=>{
           if(element.served!='true')
           {
-            element.served='Yes'
+            element.served = 'No';
           }
-        })//todo for no
+          else{
+            element.served = 'Yes';
+          }
+          if(element.paid!='true')
+          {
+            element.paid = 'No';
+          }
+          else{
+            element.paid = 'Yes';
+          }
+        })*/
         this.dataSource.data = response;
         
 

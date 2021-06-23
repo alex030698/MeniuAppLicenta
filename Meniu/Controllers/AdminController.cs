@@ -25,73 +25,93 @@ namespace Meniu.Controllers
 
         [HttpGet]
 
-        public List<ParseOrder> GetOrders()
+        public async Task<List<ParseOrder>> GetOrdersAsync()
         {
-            var orders = context.Order;
+            var orders = context.Order.Where(x=>x.paid==false);
             var food = context.Food;
             var orderfood = context.OrderFood;
 
-            List<Orders> ordersList = orders.Where(x=>x.paid==false).ToList();
-            List<OrderFood> orderFoodList= new List<OrderFood>();
-            List<Food> foodList=new List<Food>();
-            foreach (var item in ordersList)
-            {
-                List<OrderFood> aux = new List<OrderFood>(); 
-                aux= orderfood.Where(x => x.Order == item.id).ToList();
-                var l=orderFoodList.Concat(aux);
-                orderFoodList = l.ToList();
-                
-            }
-            foreach(var item in orderFoodList)
-            {
-                List<Food> aux = new List<Food>();
-                aux= food.Where(x => x.id == item.Food).ToList();
-                var l=foodList.Concat(aux);
-                foodList = l.ToList();
-            }
+            var test = context.Orderr;
 
 
-            List<ParseOrder> output = new List<ParseOrder>();
-            foreach(var item in ordersList)
+            List<Orders> ordersList = new List<Orders>();
+            if (orders.Count() != 0)
+                ordersList =  orders.ToList();
+
+            if (ordersList!=null)
             {
-                Food temp = new Food();
-                List<Food> tempList = new List<Food>();
-                foreach (var item2 in orderFoodList)
+                List<OrderFood> orderFoodList = new List<OrderFood>();
+                List<Food> foodList = new List<Food>();
+                foreach (var item in ordersList)
                 {
-
-                    if (item2.Order == item.id)
-                    {
-                        temp=context.Food.FirstOrDefault(z => z.id == item2.Food);
-                        tempList.Add(context.Food.FirstOrDefault(z => z.id == item2.Food));
-                    }
+                    List<OrderFood> aux = new List<OrderFood>();
+                    aux = orderfood.Where(x => x.Order == item.id).ToList();
+                    var l = orderFoodList.Concat(aux);
+                    orderFoodList = l.ToList();
 
                 }
-
-                ParseOrder aux = new ParseOrder()
+                foreach (var item in orderFoodList)
                 {
-                    id = item.id,
-                    orderNo = item.orderNo,
-                    oderDate = item.oderDate,
-                    price = item.price,
-                    waittingTime = item.waittingTime,
-                    paid = item.paid,
-                    served = item.served,
-                    comment = item.comment,
-                    table = item.table,
-                    food = tempList
-            };
+                    List<Food> aux = new List<Food>();
+                    aux = food.Where(x => x.id == item.Food).ToList();
+                    var l = foodList.Concat(aux);
+                    foodList = l.ToList();
+                }
 
-                output.Insert(output.Count, aux);
+
+                List<ParseOrder> output = new List<ParseOrder>();
+                foreach (var item in ordersList)
+                {
+                    Food temp = new Food();
+                    List<Food> tempList = new List<Food>();
+                    foreach (var item2 in orderFoodList)
+                    {
+
+                        if (item2.Order == item.id)
+                        {
+                            temp = context.Food.FirstOrDefault(z => z.id == item2.Food);
+                            tempList.Add(context.Food.FirstOrDefault(z => z.id == item2.Food));
+                        }
+
+                    }
+
+                    ParseOrder aux = new ParseOrder()
+                    {
+                        id = item.id,
+                        orderNo = item.orderNo,
+                        oderDate = item.oderDate,
+                        price = item.price,
+                        waittingTime = item.waittingTime,
+                        paid = item.paid,
+                        served = item.served,
+                        comment = item.comment,
+                        table = item.table,
+                        food = tempList
+                    };
+
+                    output.Insert(output.Count, aux);
+                }
+return output;
             }
 
-            
-
-            return output;
+            return null;
             
         }
 
 
         [HttpPost]
+        public async Task<int> UpdateOrdersToServed(Orders ids)//input - list of orders id
+        {
+
+            if (ids != null)
+            {
+                var x = context.Order.FirstOrDefault(i => i.id == ids.id);
+                x.served = true;
+                context.Update(x);
+                await context.SaveChangesAsync();
+            }
+            return 0;
+        }
 
         //set an order or list of orders as paid
         public async Task<int> UpdateOrdersToPaid(Orders ids ,string custom)//input - list of orders id

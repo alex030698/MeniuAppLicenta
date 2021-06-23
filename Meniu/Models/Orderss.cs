@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Meniu.Models
 {
-    public class Orders
+    public class Orderss
     {
         public int id { get; set; }
         public int orderNo { get; set; }
@@ -16,6 +16,5 @@ namespace Meniu.Models
         public bool served { get; set; }
         public string comment { get; set; }
         public int table { get; set; }
-        
     }
 }

@@ -5,16 +5,21 @@
         <ul class="navbar-nav flex-grow">
           
             <li class="nav-item" [routerLinkActive]="['link-active']">
-              <button mat-button>Add Meniu Item</button>
+              <button mat-button (click)="addMeniu">Add Meniu Item</button>
             </li>
             <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Delete Meniu Item</a>
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Edit Meniu Item</a>
-              </li>
+              <button mat-button>Edit Meniu Item</button>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <button mat-button>Delete Meniu Item</button>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <button mat-button (click)="AddTable()">Add Table</button>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <button mat-button (click)="DeleteTable()">Delete Table</button>
+            </li>
               
           </ul>
     </nav>
   </header>
-  

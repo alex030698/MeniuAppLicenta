@@ -25,7 +25,7 @@ export class FetchDataService {
    {
      return this.http.post<any>(this._baseURL+'Paid' , item);
    }
-   UpdateOrdersToServed(item:OrdersResponse ,custom="served"):Observable<any>
+   UpdateOrdersToServed(item:OrdersResponse ):Observable<any>
    {
      return this.http.post<any>(this._baseURL+'Served' , item);
    }

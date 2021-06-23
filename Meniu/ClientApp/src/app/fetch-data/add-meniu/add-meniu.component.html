@@ -1,1 +1,27 @@
-<p>add-meniu works!</p>
+<mat-dialog-content>
+    <div [formGroup]="resourceForm" class="content-style">
+        <mat-form-field appearance="outline">
+            <mat-label>Nume Preparat</mat-label>
+            <input matInput formControlName="FoodName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Pret</mat-label>
+            <input matInput formControlName="Price">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Durata preparare</mat-label>
+            <input matInput formControlName="PreparationTime">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Ingrediente</mat-label>
+            <input matInput formControlName="Ingredients">
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onSubmit()" mat-raised-button class="submit-btn">Submit</button>
+    <button (click)="onClose()" mat-raised-button>Cancel</button>
+</mat-dialog-actions>

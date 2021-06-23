@@ -18,6 +18,7 @@ namespace Meniu.Data
         {}
         public DbSet<Meniu.Models.Food> Food { get; set; }
         public DbSet<Orders> Order { get; set; }
+        public DbSet<Orderss> Orderr { get; set; }
         public DbSet<Restaurants> Restaurant { get; set; }
         public DbSet<OrderFood> OrderFood { get; set; }
         public DbSet<Tables> Table { get; set; }

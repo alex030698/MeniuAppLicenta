@@ -19,7 +19,6 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import { CdkTableModule} from '@angular/cdk/table';
-import {DataSource} from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table' 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule }   from '@angular/common';
@@ -34,6 +33,9 @@ import { AddMeniuComponent } from './fetch-data/add-meniu/add-meniu.component';
 import { DeleteMeniuComponent } from './fetch-data/delete-meniu/delete-meniu.component';
 import { EditMeniuComponent } from './fetch-data/edit-meniu/edit-meniu.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+
+import {  ReactiveFormsModule } from '@angular/forms'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ApiAuthorizationModule,
     MatDividerModule,
     MatIconModule,
@@ -67,6 +70,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatTooltipModule,
     MatPaginatorModule,
     MatExpansionModule,
+    
     RouterModule.forRoot([
       {path:'',children:[{path:'',component:IntroComponent}]},
       {path: 'nav-bar', component:NavBarComponent},
