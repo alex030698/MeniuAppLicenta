@@ -33,7 +33,7 @@ import { AddMeniuComponent } from './fetch-data/add-meniu/add-meniu.component';
 import { DeleteMeniuComponent } from './fetch-data/delete-meniu/delete-meniu.component';
 import { EditMeniuComponent } from './fetch-data/edit-meniu/edit-meniu.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatSelectModule} from '@angular/material/select';
 import {  ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
@@ -48,6 +48,10 @@ import {  ReactiveFormsModule } from '@angular/forms'
     DeleteMeniuComponent,
     EditMeniuComponent
     
+  ],
+  entryComponents:[
+    AddMeniuComponent,
+    DeleteMeniuComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -70,7 +74,7 @@ import {  ReactiveFormsModule } from '@angular/forms'
     MatTooltipModule,
     MatPaginatorModule,
     MatExpansionModule,
-    
+    MatSelectModule,
     RouterModule.forRoot([
       {path:'',children:[{path:'',component:IntroComponent}]},
       {path: 'nav-bar', component:NavBarComponent},

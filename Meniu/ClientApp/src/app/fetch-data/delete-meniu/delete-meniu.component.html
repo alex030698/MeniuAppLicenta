@@ -1,1 +1,18 @@
-<p>delete-meniu works!</p>
+<mat-dialog-content>
+    
+<mat-form-field appearance="fill">
+  <mat-label>Select Food</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let food of foods" [value]="food.name">
+      {{food.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button (click)="onSubmit()" mat-raised-button class="submit-btn">Submit</button>
+    <button (click)="onClose()" mat-raised-button>Cancel</button>
+</mat-dialog-actions>

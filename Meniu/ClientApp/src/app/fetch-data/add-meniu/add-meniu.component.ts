@@ -27,6 +27,9 @@ export class AddMeniuComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClose() {
+    this.dialogRef.close();
+  }
   onSubmit() {
     
     const resource: MeniuRequest = {
@@ -40,6 +43,8 @@ export class AddMeniuComponent implements OnInit {
     this.addResource(resource).subscribe((response: any) =>{
       
     })
+
+    this.onClose();
   }
 
   addResource(resource: MeniuRequest): Observable<any> {

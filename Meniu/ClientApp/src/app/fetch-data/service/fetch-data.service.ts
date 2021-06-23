@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OrdersResponse } from '../model/fetch-data';
+import { Food, OrdersResponse } from '../model/fetch-data';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +37,11 @@ export class FetchDataService {
      return null;
 
    }
+
+
+  getFood(): Observable<Food[]> {
+
+    return this.http.get<Food[]>(this._baseURL + 'home');
+  }
 }
+
