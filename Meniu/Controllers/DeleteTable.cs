@@ -28,7 +28,7 @@ namespace Meniu.Controllers
             if (table.Count() > 1)
             {
                 var last = table.OrderByDescending(g => g.id).Take(1);
-
+                
                 table.RemoveRange(last);
                await context.SaveChangesAsync();
             }
