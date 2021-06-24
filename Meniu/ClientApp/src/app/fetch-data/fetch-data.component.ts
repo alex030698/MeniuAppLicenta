@@ -118,7 +118,7 @@ export class FetchDataComponent implements OnInit{
     
   }
 
-  editOrder(item: OrdersResponse) {
+  /*editOrder(item: OrdersResponse) {
     const dialogConfiguration = new MatDialogConfig();
     dialogConfiguration.autoFocus = true;
     dialogConfiguration.disableClose = true;
@@ -138,9 +138,26 @@ export class FetchDataComponent implements OnInit{
       });
 
     });
+
+    
+}*/
+
+editOrder(item:OrdersResponse){
+
+    
+  const dialogConfiguration = new MatDialogConfig();
+  dialogConfiguration.autoFocus = true;
+  dialogConfiguration.disableClose = true;
+  dialogConfiguration.width = '1000px';
+  dialogConfiguration.height = '600px';
+  dialogConfiguration.data=item;
+  const dialogRef = this.dialog.open(EditOrderComponent, dialogConfiguration);
+  dialogRef.afterClosed().subscribe((response: any) => {
+    if (response) {
+      console.log(response)
+    }
+  });
 }
-
-
 
 
 }

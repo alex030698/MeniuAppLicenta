@@ -12,27 +12,23 @@ namespace Meniu.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class addmeniuitem : Controller
+    public class EditOrder : Controller
     {
         private readonly ApplicationDbContext context;
 
-        public addmeniuitem(ApplicationDbContext context)
+        public EditOrder(ApplicationDbContext context)
         {
             this.context = context;
         }
-
         [HttpPost]
 
-        public async Task<int> AddItem(Food item)
+        public async Task Updae(Orders item)
         {
-            var food = context.Food;
 
-            if (item.name != "" && item.price != 0 && item.type != "")
-            {
-                await food.AddAsync(item);
-                await context.SaveChangesAsync();
-            }
-            return 0;
+            var order = context.Order;
+            var update = order.First(p => p.id == item.id);
+            order.Update(update);
+            await context.SaveChangesAsync();
         }
         public IActionResult Index()
         {

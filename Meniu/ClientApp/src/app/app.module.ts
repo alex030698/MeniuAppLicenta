@@ -36,6 +36,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
 import {  ReactiveFormsModule } from '@angular/forms';
 import { SelectMeniuComponent } from './fetch-data/select-meniu/select-meniu.component'
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SelectMeniuComponent } from './fetch-data/select-meniu/select-meniu.com
     DeleteMeniuComponent,
     EditMeniuComponent,
     SelectMeniuComponent,
+    EditOrderComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,6 +70,7 @@ import { SelectMeniuComponent } from './fetch-data/select-meniu/select-meniu.com
     CdkTableModule,
     MatTableModule,
     MatDialogModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
     DragDropModule,

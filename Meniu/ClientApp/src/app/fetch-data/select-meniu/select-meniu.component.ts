@@ -35,9 +35,6 @@ export class SelectMeniuComponent implements OnInit {
   }
 
   onSubmit(item:string){
-
-    
-    
     this.foods.forEach(element => {
       if(element.id.toString()== item)
       {

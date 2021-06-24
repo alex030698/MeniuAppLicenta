@@ -17,6 +17,7 @@ import { FetchDataService } from '../service/fetch-data.service';
 })
 export class EditMeniuComponent implements OnInit {
 
+  public food:Food;
   public _baseURL;
   constructor(public http: HttpClient,public service:ServiceService,public dialog: MatDialog, @Inject('BASE_URL') baseUrl: string, private dialogRef: MatDialogRef<SelectMeniuComponent>) {
     this._baseURL = baseUrl;
@@ -53,6 +54,7 @@ export class EditMeniuComponent implements OnInit {
     const dialogRef = this.dialog.open(SelectMeniuComponent, dialogConfiguration);
     dialogRef.afterClosed().subscribe((response: Food) => {
       if (response) {
+        this.food=response;
        console.log(response);
        this.resourceForm.controls['preparat'].setValue(response.name);
     this.resourceForm.controls['pret'].setValue(response.price);
@@ -72,7 +74,7 @@ export class EditMeniuComponent implements OnInit {
       price: this.resourceForm.get(['pret']).value,
       preparationTime: this.resourceForm.get(['timp']).value,
       type: this.resourceForm.get(['tip']).value,
-      id: 0,
+      id: this.food.id,
       ingredients: this.resourceForm.get(['ingrediente']).value,
       amount: 0,
       tableId: 0,
@@ -87,8 +89,8 @@ export class EditMeniuComponent implements OnInit {
 
 
 
-
     });
+    this.onClose();
   }
   
 }

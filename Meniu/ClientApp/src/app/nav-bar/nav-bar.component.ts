@@ -101,6 +101,8 @@ export class NavBarComponent implements OnInit {
       }
     });
   }
+
+  
 }
 
 export interface Tables{

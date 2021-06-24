@@ -1,0 +1,32 @@
+<mat-dialog-content>
+
+    <div [formGroup]="resourceForm" class="content-style">
+
+        
+
+        <mat-form-field appearance="outline">
+            <mat-label>Servit</mat-label>
+            <input matInput formControlName="served">
+        </mat-form-field>
+
+        
+
+        <mat-form-field appearance="outline">
+            <mat-label>Pret</mat-label>
+            <input matInput formControlName="pret">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Timp</mat-label>
+            <input matInput formControlName="timp">
+        </mat-form-field>
+        
+    </div>
+   
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button (click)="onSubmit()" mat-raised-button class="submit-btn">Submit</button>
+    <button (click)="onClose()" mat-raised-button>Cancel</button>
+</mat-dialog-actions>
+
+
