@@ -1,6 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { NavBarComponent } from 'src/app/nav-bar/nav-bar.component';
+import { ServiceService } from 'src/app/nav-bar/service/service.service';
+import { DeleteMeniuComponent } from '../delete-meniu/delete-meniu.component';
+import { FetchDataComponent } from '../fetch-data.component';
+import { Food } from '../model/fetch-data';
+import { SelectMeniuComponent } from '../select-meniu/select-meniu.component';
+import { FetchDataService } from '../service/fetch-data.service';
 
 @Component({
   selector: 'app-edit-meniu',
@@ -10,85 +18,77 @@ import { MatDialogRef } from '@angular/material';
 export class EditMeniuComponent implements OnInit {
 
   public _baseURL;
-  constructor(public http:HttpClient, @Inject('BASE_URL') baseUrl: string ,private dialogRef: MatDialogRef<EditMeniuComponent>) { 
-    this._baseURL=baseUrl;
+  constructor(public http: HttpClient,public service:ServiceService,public dialog: MatDialog, @Inject('BASE_URL') baseUrl: string, private dialogRef: MatDialogRef<SelectMeniuComponent>) {
+    this._baseURL = baseUrl;
   }
 
+  public foods:Food;
+  resourceForm: FormGroup = new FormGroup({
+    preparat: new FormControl(''),
+    pret: new FormControl(0),
+    tip: new FormControl(''),
+    timp: new FormControl(0),
+    ingrediente:new FormControl(''),
+
+  });
   ngOnInit() {
+
+    
+    
+
+
   }
   onClose() {
     this.dialogRef.close();
-    
+
   }
-/*
+
+  onEdit()
+  {
+    const dialogConfiguration = new MatDialogConfig();
+    dialogConfiguration.autoFocus = true;
+    dialogConfiguration.disableClose = true;
+    dialogConfiguration.width = '1000px';
+    dialogConfiguration.height = '600px';
+    const dialogRef = this.dialog.open(SelectMeniuComponent, dialogConfiguration);
+    dialogRef.afterClosed().subscribe((response: Food) => {
+      if (response) {
+       console.log(response);
+       this.resourceForm.controls['preparat'].setValue(response.name);
+    this.resourceForm.controls['pret'].setValue(response.price);
+    this.resourceForm.controls['tip'].setValue(response.type);
+    this.resourceForm.controls['timp'].setValue(response.preparationTime);
+    this.resourceForm.controls['ingrediente'].setValue(response.ingredients);
+
+    this.ngOnInit();
+      }
+    });
+  }
   onSubmit() {
-    
-    const resource: ResourceRequest = {
-      id: this.data.resourceId,
-      resourceType: this.resourceForm.get(['resourceType']).value,
-      itemCode: this.resourceForm.get(['itemCode']).value,
-      inventoryNo: this.resourceForm.get(['inventoryNo']).value,
-      costCenter: this.resourceForm.get(['costCenter']).value,
-      model: this.resourceForm.get(['model']).value,
-      ram: this.resourceForm.get(['ram']).value,
-      ssd: (this.resourceForm.get(['ssd']).value === 'Yes') ? true : false,
-      diagonal: this.resourceForm.get(['diagonal']).value,
-      dateIn: this.resourceForm.get(['dateIn']).value,
+
+    const resource: Food = {
+
+      name: this.resourceForm.get(['preparat']).value,
+      price: this.resourceForm.get(['pret']).value,
+      preparationTime: this.resourceForm.get(['timp']).value,
+      type: this.resourceForm.get(['tip']).value,
+      id: 0,
+      ingredients: this.resourceForm.get(['ingrediente']).value,
+      amount: 0,
+      tableId: 0,
+
     }
 
-    this.resourceService.updateResource(resource).subscribe((response: ResourceResponse) =>{
-      if(response){
-        const inventoryItem: updateInventoryItemRequest = {
-          id:this.data.id,
-          employeeId: employee.employeeId,
-          resourceId: response.id,
-          location: this.resourceForm.get(['location']).value,
-          status: this.resourceForm.get(['status']).value,
-          comment: this.resourceForm.get(['comment']).value
+    this.service.updateMeniu(resource).subscribe((response: any) => {
+      if (response) {
 
 
-          
-    
-    
-        }
-        if(employee.employeeId===this.data.employeeId){
-
-        
-          this.resourceService.updateInventoryItem(inventoryItem).subscribe((itemResponse: InventoryItem) =>{
-            if(itemResponse){
-
-              this.dialogRef.close(itemResponse);
-            }
-          })
-        }
-        else
-        {
-          const request:deleteInventoryRequest={
-            id:this.data.id,
-            employeeId:employee.id,
-            resourceId:response.id
-          }
-          
-          //this.resourceService.deleteinv...Component
-          //this.resourceService.addInventoryItem[Symbol].
-          this.resourceService.deleteInventoryItem(request).subscribe((responsedel:deleteInventoryResponse)=>{
-
-            const addItem:InventoryItemRequest={
-            employeeId:responsedel.employeeId,
-            resourceId:responsedel.id,
-            location:responsedel.location,
-            status:responsedel.status,
-            comment:responsedel.comment
-            };
-            this.resourceService.addInventoryItem(addItem).subscribe((addResponse:InventoryItem)=>{
-
-            });
-            
-          });
-        }
       }
-    })
-  }
-*/
 
+
+
+
+    });
+  }
+  
 }

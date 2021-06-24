@@ -103,7 +103,7 @@ namespace Meniu.Controllers
 
                 }
 
-                context.SaveChanges();
+               await context.SaveChangesAsync();
 
             }
 

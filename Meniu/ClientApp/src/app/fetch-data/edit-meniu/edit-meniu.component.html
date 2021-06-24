@@ -1,44 +1,43 @@
-<!--
 <mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button (click)="onEdit()" mat-raised-button class="submit-btn">Select item</button>
+        
+    </mat-dialog-actions>
 
     <div [formGroup]="resourceForm" class="content-style">
 
-        <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort multiTemplateDataRows>
+        
 
+        <mat-form-field appearance="outline">
+            <mat-label>Numele Preparatului</mat-label>
+            <input matInput formControlName="preparat">
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+            <mat-label>Tip</mat-label>
+            <input matInput formControlName="tip">
+        </mat-form-field>
 
+        <mat-form-field appearance="outline">
+            <mat-label>Timp de preparare</mat-label>
+            <input matInput formControlName="timp">
+        </mat-form-field>
 
-                <ng-container matColumnDef="Preparat/Bautura" id="Preparat">
-                    <th mat-header-cell *matHeaderCellDef> Preparat </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
+        <mat-form-field appearance="outline">
+            <mat-label>Ingrediente</mat-label>
+            <input matInput formControlName="ingrediente">
+        </mat-form-field>
 
-                <ng-container matColumnDef="Pret">
-                    <th mat-header-cell *matHeaderCellDef> Pret </th>
-                    <td mat-cell *matCellDef="let element" id="Pret"> {{element.price}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="Pret">
-                    <th mat-header-cell *matHeaderCellDef> Tip </th>
-                    <td mat-cell *matCellDef="let element" id="Pret"> {{element.price}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="timp">
-                    <th mat-header-cell *matHeaderCellDef> Timp de preparare </th>
-                    <td mat-cell *matCellDef="let element" id="timp">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Timp de preparare</mat-label>
-                            <input matInput formControlName="">
-                        </mat-form-field>
-                    </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns" sticky:true></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </div>
-
+        <mat-form-field appearance="outline">
+            <mat-label>Pret</mat-label>
+            <input matInput formControlName="pret">
+        </mat-form-field>
+        
+        
+        
+        
+        
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
@@ -46,4 +45,4 @@
     <button (click)="onClose()" mat-raised-button>Cancel</button>
 </mat-dialog-actions>
 
--->
+

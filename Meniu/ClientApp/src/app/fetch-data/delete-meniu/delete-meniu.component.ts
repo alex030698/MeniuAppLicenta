@@ -19,6 +19,7 @@ export class DeleteMeniuComponent implements OnInit {
   }
 
   foods:Food[];
+  send :Food;
   ngOnInit() {
 
     this.service.getFood().subscribe((response: Food[]) => {
@@ -26,6 +27,21 @@ export class DeleteMeniuComponent implements OnInit {
     });
 
 
+  }
+
+  onSubmit(item:string){
+
+    console.log(item , "delete")
+    this.foods.forEach(element => {
+      if(element.id.toString()== item)
+      {
+        this.send=element;
+      }
+    });
+    this.service.DeleteMeniu(this.send).subscribe((response:Food)=>{
+
+    });
+    this.onClose();
   }
 
   onClose() {

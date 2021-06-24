@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { Food } from '../model/fetch-data';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class AddMeniuComponent implements OnInit {
     Ingredients: new FormControl(''),
     Price: new FormControl(0),
     PreparationTime: new FormControl(0),
+    Type: new FormControl(''),
   });
 
   constructor(public http:HttpClient, @Inject('BASE_URL') baseUrl: string ,private dialogRef: MatDialogRef<AddMeniuComponent>) { 
@@ -30,24 +32,31 @@ export class AddMeniuComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
+
   onSubmit() {
     
-    const resource: MeniuRequest = {
+    const resource: Food = {
 
-      FoodName:this.resourceForm.get(['FoodName']).value,
-      Ingredients:this.resourceForm.get(['Ingredients']).value,
+      id:0,
+      name:this.resourceForm.get(['FoodName']).value,
+      type:this.resourceForm.get(['Type']).value,
+      amount:0,
+      price:this.resourceForm.get(['Price']).value,
+      ingredients:this.resourceForm.get(['Ingredients']).value,
       preparationTime:this.resourceForm.get(['PreparationTime']).value,
-      Price:this.resourceForm.get(['Price']).value
+ 
+      tableId:0,
+      
     }
 
     this.addResource(resource).subscribe((response: any) =>{
-      
+      console.log(response);
     })
 
     this.onClose();
   }
 
-  addResource(resource: MeniuRequest): Observable<any> {
+  addResource(resource: Food): Observable<any> {
     
     return this.http.post<any>(this._baseURL + "addmeniuitem", resource);
   }
@@ -59,4 +68,8 @@ export interface MeniuRequest{
   Ingredients:string;
   preparationTime:number;
   Price:number;
+  Type:string;
+  amount:number;
+  tableId:number;
+  id:number;
 }

@@ -91,6 +91,7 @@ namespace Meniu.Controllers
 
                     output.Insert(output.Count, aux);
                 }
+                await context.SaveChangesAsync();
 return output;
             }
 

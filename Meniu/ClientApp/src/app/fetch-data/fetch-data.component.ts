@@ -28,6 +28,7 @@ export class FetchDataComponent implements OnInit{
   public foods: Food[];
   public orders: OrdersResponse[];
   public orderID:number;
+  public toSelect:Food;
   displayedColumns: string[] = ['position','price', 'name', 'weight', 'symbol' ,'food','Edit'];
   //dataSource = ELEMENT_DATA;
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Food } from 'src/app/fetch-data/model/fetch-data';
 import { Tables } from '../nav-bar.component';
 
 @Injectable({
@@ -20,6 +21,12 @@ export class ServiceService {
    Delete(item:Tables):Observable<Tables[]>
    {
     return this.http.post<Tables[]>(this._baseURL +'DeleteTable',item);
+   }
+
+   updateMeniu(item:Food){
+
+    return this.http.post<any>(this._baseURL+'EditMeniu',item);
+
    }
 
 }

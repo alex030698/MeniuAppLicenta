@@ -5,7 +5,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs';
 import { AddMeniuComponent } from '../fetch-data/add-meniu/add-meniu.component';
 import { DeleteMeniuComponent } from '../fetch-data/delete-meniu/delete-meniu.component';
+import { EditMeniuComponent } from '../fetch-data/edit-meniu/edit-meniu.component';
 import { Food, OrdersResponse } from '../fetch-data/model/fetch-data';
+import { SelectMeniuComponent } from '../fetch-data/select-meniu/select-meniu.component';
 import {ServiceService} from './service/service.service'
 @Component({
   selector: 'app-nav-bar',
@@ -15,6 +17,7 @@ import {ServiceService} from './service/service.service'
 export class NavBarComponent implements OnInit {
 
   _baseURL: string;
+  public toSelect:Food;
   constructor(public service:ServiceService, public dialog: MatDialog,public http:HttpClient , @Inject('BASE_URL') baseUrl: string) { 
     this._baseURL=baseUrl;
   }
@@ -66,7 +69,7 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  DeleteMeniu(){
+ public  DeleteMeniu(){
 
     const dialogConfiguration = new MatDialogConfig();
     dialogConfiguration.autoFocus = true;
@@ -76,10 +79,27 @@ export class NavBarComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteMeniuComponent, dialogConfiguration);
     dialogRef.afterClosed().subscribe((response: Food) => {
       if (response) {
-        console.log(response);
+       console.log(response);
       }
     });
 
+  }
+
+  editMeniu(){
+
+    
+    const dialogConfiguration = new MatDialogConfig();
+    dialogConfiguration.autoFocus = true;
+    dialogConfiguration.disableClose = true;
+    dialogConfiguration.width = '1000px';
+    dialogConfiguration.height = '600px';
+
+    const dialogRef = this.dialog.open(EditMeniuComponent, dialogConfiguration);
+    dialogRef.afterClosed().subscribe((response: any) => {
+      if (response) {
+        console.log(response)
+      }
+    });
   }
 }
 

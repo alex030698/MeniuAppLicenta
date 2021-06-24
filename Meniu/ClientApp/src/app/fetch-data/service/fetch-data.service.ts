@@ -37,7 +37,11 @@ export class FetchDataService {
      return null;
 
    }
+   
+   DeleteMeniu(item:Food):Observable<any>{
 
+     return this.http.post<any>(this._baseURL+'DeleteMeniu',item);
+   }
 
   getFood(): Observable<Food[]> {
 

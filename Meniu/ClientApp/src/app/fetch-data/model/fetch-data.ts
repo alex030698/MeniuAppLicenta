@@ -2,7 +2,7 @@ export interface Food{
     id:number;
     name:string;
     type:string;
-    amount:string;
+    amount:number;
     price:number;
     ingredients:string;
     preparationTime:number;

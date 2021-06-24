@@ -34,7 +34,8 @@ import { DeleteMeniuComponent } from './fetch-data/delete-meniu/delete-meniu.com
 import { EditMeniuComponent } from './fetch-data/edit-meniu/edit-meniu.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
-import {  ReactiveFormsModule } from '@angular/forms'
+import {  ReactiveFormsModule } from '@angular/forms';
+import { SelectMeniuComponent } from './fetch-data/select-meniu/select-meniu.component'
 
 @NgModule({
   declarations: [
@@ -46,12 +47,15 @@ import {  ReactiveFormsModule } from '@angular/forms'
     EditOrderComponent,
     AddMeniuComponent,
     DeleteMeniuComponent,
-    EditMeniuComponent
+    EditMeniuComponent,
+    SelectMeniuComponent
     
   ],
   entryComponents:[
     AddMeniuComponent,
     DeleteMeniuComponent,
+    EditMeniuComponent,
+    SelectMeniuComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
