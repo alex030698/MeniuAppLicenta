@@ -28,7 +28,6 @@ namespace Meniu.Controllers
                 var table = context.Table;
                 Tables item = new Tables()
                 {
-                    
                     busy = false,
                     number = table.Count()+1
                 };
@@ -36,6 +35,7 @@ namespace Meniu.Controllers
                await context.SaveChangesAsync();
             return 0;
             }
+
             public IActionResult Index()
             {
                 return View();

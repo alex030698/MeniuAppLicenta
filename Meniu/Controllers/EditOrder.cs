@@ -24,11 +24,14 @@ namespace Meniu.Controllers
 
         public async Task Updae(Orders item)
         {
+            if (item != null)
+            {
+                var order = context.Order;
+                var update = order.First(p => p.id == item.id);
+                order.Update(update);
+                await context.SaveChangesAsync();
+            }
 
-            var order = context.Order;
-            var update = order.First(p => p.id == item.id);
-            order.Update(update);
-            await context.SaveChangesAsync();
         }
         public IActionResult Index()
         {

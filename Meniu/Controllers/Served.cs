@@ -26,7 +26,7 @@ namespace Meniu.Controllers
        
 
         [HttpPost]
-        public async Task<int> UpdateOrdersToServed(Orders ids)//input - list of orders id
+        public async Task<int> UpdateOrdersToServed(Orders ids)
         {
 
             if (ids != null)

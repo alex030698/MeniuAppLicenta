@@ -26,12 +26,9 @@ export class SelectMeniuComponent implements OnInit {
   foods:Food[];
   send :Food;
   ngOnInit() {
-
     this.service.getFood().subscribe((response: Food[]) => {
       this.foods=response;
     });
-
-
   }
 
   onSubmit(item:string){
@@ -39,10 +36,8 @@ export class SelectMeniuComponent implements OnInit {
       if(element.id.toString()== item)
       {
         this.send=element;
-        
       }
     });
-    
     this.onClose();
   }
 

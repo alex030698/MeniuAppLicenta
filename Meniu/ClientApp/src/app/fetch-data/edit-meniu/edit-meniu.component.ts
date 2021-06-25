@@ -69,7 +69,6 @@ export class EditMeniuComponent implements OnInit {
   onSubmit() {
 
     const resource: Food = {
-
       name: this.resourceForm.get(['preparat']).value,
       price: this.resourceForm.get(['pret']).value,
       preparationTime: this.resourceForm.get(['timp']).value,
@@ -78,17 +77,9 @@ export class EditMeniuComponent implements OnInit {
       ingredients: this.resourceForm.get(['ingrediente']).value,
       amount: 0,
       tableId: 0,
-
     }
-
     this.service.updateMeniu(resource).subscribe((response: any) => {
-      if (response) {
-
-
-      }
-
-
-
+      
     });
     this.onClose();
   }

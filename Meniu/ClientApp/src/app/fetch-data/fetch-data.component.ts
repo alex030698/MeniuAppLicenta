@@ -8,6 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatPaginator, MatSort } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { EditOrderComponent } from './edit-order/edit-order.component';
+import { stringify } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class FetchDataComponent implements OnInit{
   public orders: OrdersResponse[];
   public orderID:number;
   public toSelect:Food;
+  public text:string[];
   displayedColumns: string[] = ['position','price', 'name', 'weight', 'symbol' ,'food','Edit'];
   //dataSource = ELEMENT_DATA;
 
@@ -56,33 +58,19 @@ export class FetchDataComponent implements OnInit{
 
       if(response)
       {
-        console.log(response)
-       /* response.forEach(element=>{
-          if(element.served!='true')
-          {
-            element.served = 'No';
-          }
-          else{
-            element.served = 'Yes';
-          }
-          if(element.paid!='true')
-          {
-            element.paid = 'No';
-          }
-          else{
-            element.paid = 'Yes';
-          }
-        })*/
+ 
+       
         this.dataSource.data = response;
         
 
-        
       }
      console.log(this.dataSource.data)
    })
 
 
   }
+
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -91,56 +79,30 @@ export class FetchDataComponent implements OnInit{
   
   SetPaid(item:OrdersResponse)
   {
-
     this.fetchData.UpdateOrdersToPaid(item).subscribe((response:any)=>{
       console.log("gata")
     });
-    window.location.reload()
+    this.ngOnInit();
   }
+
   SetServed(item:OrdersResponse)
   {
 
     if(item.served!='true')
     this.fetchData.UpdateOrdersToServed(item).subscribe((response:any)=>{
-      console.log("gata")
-      window.location.reload()
+      this.ngOnInit();
     });
     
   }
 
   Delete(item:OrdersResponse){
     this.fetchData.DeleteOrder(item).subscribe((response:any)=>{
-      console.log("gata")
+      console.log("Order Deleted !")
       window.location.reload()
     });
-
-    
-    
   }
 
-  /*editOrder(item: OrdersResponse) {
-    const dialogConfiguration = new MatDialogConfig();
-    dialogConfiguration.autoFocus = true;
-    dialogConfiguration.disableClose = true;
-    dialogConfiguration.width = '1000px';
-    dialogConfiguration.height = '600px';
-    console.log(item.id);
-    this.fetchData.getSingleOrder(item).subscribe((response: any) => {
-      dialogConfiguration.data = item;
-
-      const dialogRef = this.dialog.open(EditOrderComponent, dialogConfiguration);
-      
-      dialogRef.afterClosed().subscribe((response: any) => {
-        if (response) {
-          alert("text");
-          
-        }
-      });
-
-    });
-
-    
-}*/
+  
 
 editOrder(item:OrdersResponse){
 

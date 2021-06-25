@@ -23,12 +23,10 @@ namespace Meniu.Controllers
         [HttpPost]
         public async Task Delete(Tables x)
         {
-            
             var table = context.Table;
             if (table.Count() > 1)
             {
                 var last = table.OrderByDescending(g => g.id).Take(1);
-                
                 table.RemoveRange(last);
                await context.SaveChangesAsync();
             }

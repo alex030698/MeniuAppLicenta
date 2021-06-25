@@ -24,16 +24,12 @@ namespace Meniu.Controllers
         }
         [HttpPost]
 
-        public async Task<int> UpdateOrdersToPaid(Orders ids)//input - list of orders id
+        public async Task<int> UpdateOrdersToPaid(Orders ids)
         {
-
             if (ids != null)
             {
                 var x = context.Order.FirstOrDefault(i => i.id == ids.id);
-
-                
                 context.Remove(x);
-
                 await context.SaveChangesAsync();
             }
             return 0;

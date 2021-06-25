@@ -47,7 +47,12 @@
                 Click for Food details
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <p></p>
+            <div *ngFor="let item of element.food">
+              <div *ngFor="let items of item">
+                <p>{{item2.name}}</p>
+              </div>
+              
+            </div>
             
             
           </mat-expansion-panel>

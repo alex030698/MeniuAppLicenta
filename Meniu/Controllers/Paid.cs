@@ -24,16 +24,13 @@ namespace Meniu.Controllers
         [HttpPost]
 
         //set an order or list of orders as paid
-        public async Task<int> UpdateOrdersToPaid(Orders ids, string custom)//input - list of orders id
+        public async Task<int> UpdateOrdersToPaid(Orders ids, string custom)
         {
-
             if (ids != null)
             {
                 var x = context.Order.FirstOrDefault(i => i.id == ids.id);
-
                 x.paid = true;
                 context.Update(x);
-
                 await context.SaveChangesAsync();
             }
             return 0;
